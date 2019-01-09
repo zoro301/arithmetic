@@ -27,16 +27,18 @@ public class LinkedListLRUCache {
 
         if(index != -1){
             result = cacheList.get(index);
+            cacheList.remove(result);
+            cacheList.addFirst(result);
         }
-
+        
         return result;
     }
 
     public void set(Object obj){
-        if(cacheList.contains(obj)){
+        if(cacheList.contains(obj)){//对象实例在缓存中存在,移除
             cacheList.remove(obj);
         }else {
-            removeLeastRecentlyUsedObj(obj);
+            removeLeastRecentlyUsedObj(obj);//对象实例不存在,判断缓存是否已满,满则移除最久的数据
         }
         cacheList.addFirst(obj);
     }
